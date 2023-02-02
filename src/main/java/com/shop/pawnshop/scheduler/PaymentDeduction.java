@@ -26,7 +26,7 @@ public class PaymentDeduction {
         this.ownerRepository = ownerRepository;
     }
 
-    //@Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 5000)
     public void extractMonthlyPayments() {
         Map<Long, Long> ownerPayments = new HashMap<>();
         List<Car> cars = carRepository.findAll();
