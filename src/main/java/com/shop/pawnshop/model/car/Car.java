@@ -10,7 +10,7 @@ import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Car")
+@Table(name = "car")
 @Getter
 @Setter
 @AllArgsConstructor

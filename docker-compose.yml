@@ -1,0 +1,23 @@
+services:
+  app:
+    container_name: app-java
+    build: .
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db:5432/postgres
+      - spring.datasource.username=spring
+      - spring.datasource.password=boot
+      - spring.datasource.driver-class-name=org.postgresql.Driver
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=spring
+      - POSTGRES_PASSWORD=boot
+      - POSTGRES_DB=postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database-data:/var/lib/postgresql/data/

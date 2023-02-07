@@ -45,8 +45,10 @@ public class PaymentDeduction {
             }
             long balance = owner.getBalance();
             if (totalMonthlyPayment > balance) {
+                //add method to cut the payment from balance
                 log.info("Owner ID: " + ownerId + " Not Enough Money. Total Monthly Payment: " + totalMonthlyPayment + " Balance: " + balance);
             } else {
+                //need to add user status field, to suspend in case user doesn't have enough balance
                 log.info("Owner ID: " + ownerId + " Total Monthly Payment: " + totalMonthlyPayment + " Balance: " + balance);
             }
         }
