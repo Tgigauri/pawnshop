@@ -4,6 +4,7 @@ import com.shop.pawnshop.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,14 @@ public class OwnerController {
     }
 
     @GetMapping
-    public List<Owner> getAllOwners() {
-        return ownerService.getAllOwners();
+    public ResponseEntity<?> getAllOwners() {
+        return ResponseEntity.status(HttpStatus.OK).body(ownerService.getAllOwners());
     }
 
     @PostMapping
     public ResponseEntity<?> createOwner(@Valid @RequestBody Owner owner) {
-        return ownerService.createOwner(owner);
+        ownerService.createOwner(owner);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
@@ -41,12 +43,14 @@ public class OwnerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOwner(@PathVariable(value = "id") Long ownerId) {
-        return ownerService.deleteOwner(ownerId);
+        ownerService.deleteOwner(ownerId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
     @PostMapping("/{id}/balance")
-    public Owner addBalance(@PathVariable Long id, @RequestParam Long value) {
-        return ownerService.addBalance(id, value);
+    public ResponseEntity<?> addBalance(@PathVariable Long id, @RequestParam Long value) {
+        ownerService.addBalance(id, value);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

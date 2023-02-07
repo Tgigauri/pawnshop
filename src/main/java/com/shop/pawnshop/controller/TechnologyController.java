@@ -5,6 +5,7 @@ import com.shop.pawnshop.model.technology.Technology;
 
 import com.shop.pawnshop.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,22 +25,24 @@ public class TechnologyController {
     }
 
     @GetMapping
-    public List<Technology> getAllTechnology() {
-        return technologyService.getAllTechnology();
+    public ResponseEntity<?> getAllTechnology() {
+        return ResponseEntity.status(HttpStatus.OK).body(technologyService.getAllTechnology());
     }
 
     @PostMapping
     public ResponseEntity<?> createTechnology(@Valid @RequestBody Technology technology) {
-        return technologyService.createTechnology(technology);
+        technologyService.createTechnology(technology);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
-    public Technology getTechnologyById(@PathVariable(value = "id") Long technologyId) {
-        return technologyService.getTechnologyById(technologyId);
+    public ResponseEntity<?> getTechnologyById(@PathVariable(value = "id") Long technologyId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(technologyService.getTechnologyById(technologyId));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTechnology(@PathVariable(value = "id") Long technologyId) {
-        return technologyService.deleteTechnology(technologyId);
+        technologyService.deleteTechnology(technologyId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

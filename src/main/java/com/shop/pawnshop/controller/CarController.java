@@ -4,6 +4,8 @@ package com.shop.pawnshop.controller;
 import com.shop.pawnshop.model.car.Car;
 import com.shop.pawnshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,22 +23,23 @@ public class CarController {
     }
 
     @GetMapping
-    public List<Car> findAll() {
-        return carService.findAll();
+    public ResponseEntity<?> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(carService.findAll());
     }
 
     @GetMapping("/{id}")
-    public Car findById(@PathVariable Long id) {
-        return carService.findById(id);
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(carService.findById(id));
     }
 
     @PostMapping
-    public Car save(@Valid @RequestBody Car car) {
-        return carService.save(car);
+    public ResponseEntity<?> save(@Valid @RequestBody Car car) {
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         carService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
