@@ -26,7 +26,8 @@ public class PaymentDeduction {
         this.ownerRepository = ownerRepository;
     }
 
-    @Scheduled(fixedRate = 5000)
+    //schedule every first of month at 12:01am
+    @Scheduled(cron = "1 0 1 * *")
     public void extractMonthlyPayments() {
         Map<Long, Long> ownerPayments = new HashMap<>();
         List<Car> cars = carRepository.findAll();
